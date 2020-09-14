@@ -11,3 +11,4 @@ data/sequences/*
 data/train/*
 data/test/*
 data/c3d/*
+*.hdf5
