@@ -1,7 +1,7 @@
 """
 Process an image that we can pass to our networks.
 """
-from keras.preprocessing.image import img_to_array, load_img
+from tensorflow.keras.preprocessing.image import img_to_array, load_img
 import numpy as np
 
 def process_image(image, target_shape):

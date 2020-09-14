@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from data import DataSet
 from extractor import Extractor
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import time
 if (len(sys.argv) == 6):
     seq_length = int(sys.argv[1])
@@ -18,8 +18,8 @@ else:
     exit (1)
 
 capture = cv2.VideoCapture(os.path.join(video_file))
-width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)   # float
-height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT) # float
+width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))   # float
+height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)) # float
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 video_writer = cv2.VideoWriter(str(output_video), fourcc, 15, (int(width), int(height)))
@@ -70,5 +70,5 @@ while True:
     fps = 1.0 / (time.time() - start_time)
     print("FPS: %.2f" % fps)
     # result = cv2.cvtColor(result, cv2.COLOR_RGB2BGR)
-    cv2.imshow("Output Video", result)
+    # cv2.imshow("Output Video", result)
 video_writer.release()

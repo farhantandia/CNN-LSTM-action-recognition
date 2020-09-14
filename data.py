@@ -10,7 +10,7 @@ import sys
 import operator
 import threading
 from processor import process_image
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 
 class threadsafe_iterator:
     def __init__(self, iterator):
