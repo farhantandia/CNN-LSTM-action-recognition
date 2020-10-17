@@ -1,1 +1,1 @@
-# Video classification example with Inception and LSTM
+# Action recognition with InceptionV3 (transfer learning) and LSTM
