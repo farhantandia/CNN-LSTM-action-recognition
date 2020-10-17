@@ -62,7 +62,7 @@ while True:
     # Add prediction to frames and write them to new video
     for image in frames:
         for i in range(len(values)):
-            cv2.putText(image, values[i], (10, 15 * i + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.35  , (255, 255, 255), lineType=cv2.LINE_AA)
+            cv2.putText(image, values[i], (20, 20 * i + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), lineType=cv2.LINE_AA)
         video_writer.write(image)
 
         result = np.asarray(image)

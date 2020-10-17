@@ -1,7 +1,7 @@
 """
 A collection of models we'll use to attempt to classify videos.
 """
-from tensorflow.keras.layers import Dense, Flatten, Dropout, ZeroPadding3D, LSTM,TimeDistributed
+from tensorflow.keras.layers import Dense, Flatten, Dropout, ZeroPadding3D, LSTM,TimeDistributed, Bidirectional
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.optimizers import Adam, RMSprop
 from tensorflow.keras.layers import Conv2D, MaxPooling3D, Conv3D,MaxPooling2D
@@ -54,9 +54,10 @@ class ResearchModels():
         our CNN to this model predomenently."""
         # Model.
         model = Sequential()
-        model.add(LSTM(2048, return_sequences=False,
+        model.add(LSTM(1028, return_sequences=True,
                        input_shape=self.input_shape,
                        dropout=0.5))
+        model.add(Bidirectional(LSTM(1028, return_sequences=False)))               
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(self.nb_classes, activation='softmax'))
