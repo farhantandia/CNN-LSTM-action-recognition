@@ -27,8 +27,8 @@ class ResearchModels():
 
         # Set the metrics. Only use top k if there's a need.
         metrics = ['accuracy']
-        if self.nb_classes >= 10:
-            metrics.append('top_k_categorical_accuracy')
+        # if self.nb_classes >= 10:
+        #     metrics.append('top_k_categorical_accuracy')
 
         # Get the appropriate model.
         if self.saved_model is not None:
@@ -54,11 +54,11 @@ class ResearchModels():
         our CNN to this model predomenently."""
         # Model.
         model = Sequential()
-        model.add(LSTM(1028, return_sequences=True,
+        model.add(LSTM(512, return_sequences=True,
                        input_shape=self.input_shape,
                        dropout=0.5))
-        model.add(Bidirectional(LSTM(1028, return_sequences=False)))               
-        model.add(Dense(512, activation='relu'))
+        model.add(Bidirectional(LSTM(512, return_sequences=False)))               
+        model.add(Dense(256, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(self.nb_classes, activation='softmax'))
 

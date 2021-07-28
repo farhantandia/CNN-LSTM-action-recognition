@@ -26,7 +26,7 @@ def extract_files(extenssion='avi'):
     `ffmpeg -i video.mpg image-%04d.jpg`
     """
     data_file = []
-    folders = ['train', 'test']
+    folders = ['UCF101/train2', 'UCF101/test2']
 
     for folder in folders:
         class_folders = glob.glob(os.path.join(folder, '*'))
@@ -56,7 +56,7 @@ def extract_files(extenssion='avi'):
 
                 print("Generated %d frames for %s" % (nb_frames, filename_no_ext))
 
-    with open('data_file.csv', 'w') as fout:
+    with open('data_file2.csv', 'w') as fout:
         writer = csv.writer(fout)
         writer.writerows(data_file)
 

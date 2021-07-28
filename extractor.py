@@ -1,5 +1,6 @@
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input
+from tensorflow.keras.applications.efficientnet import EfficientNetB3
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Input
 import numpy as np
@@ -13,17 +14,28 @@ class Extractor():
 
         input_tensor = Input(image_shape)
         # Get model with pretrained weights.
-        base_model = InceptionV3(
+        # base_model = InceptionV3(
+        #     input_tensor=input_tensor,
+        #     weights='imagenet',
+        #     include_top=True
+        # )
+
+        # We'll extract features at the final pool layer.
+        # self.model = Model(
+        #     inputs=base_model.input,
+        #     outputs=base_model.get_layer('avg_pool').output
+        # )
+        base_model = EfficientNetB3(
             input_tensor=input_tensor,
             weights='imagenet',
             include_top=True
         )
-
-        # We'll extract features at the final pool layer.
         self.model = Model(
             inputs=base_model.input,
-            outputs=base_model.get_layer('avg_pool').output
+            outputs=base_model.get_layer('block6c_se_squeeze').output
+            # outputs=base_model.get_layer('block6c_project_bn').output
         )
+
 
     def extract(self, image_path):
         img = image.load_img(image_path)
@@ -33,7 +45,7 @@ class Extractor():
     def extract_image(self, img):
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
-        x = preprocess_input(x)
+        # x = preprocess_input(x)
 
         # Get the prediction.
         features = self.model.predict(x)
